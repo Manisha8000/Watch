@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .watch {
+            background-color: rgba(233, 233, 233, 0.1);
+            backdrop-filter: blur(10px);
+            color: #dff0f3;
+            padding: 40px 80px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 0 20px rgb(39, 179, 194), 0 0 50px rgb(88, 174, 198);
+            letter-spacing: 3px;
+            animation: glow 2s infinite alternate;
+        }
+
+        .date {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #9ffcff;
+        }
+
+        .time {
+            font-size: 4rem;
+            letter-spacing: 5px;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+            }
+            to {
+                text-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7, 0 0 60px #00ffe7;
+            }
+        }
+    </style>
+    <title>Digital Watch</title>
+</head>
+
+<body>
+    <div class="watch">
+        <div class="date" id="date">Loading...</div>
+        <div class="time" id="watch">00:00:00</div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            const date = now.toLocaleDateString('en-US', options);
+
+            document.getElementById("watch").textContent =
+                `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById("date").textContent = date;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
